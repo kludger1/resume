@@ -14,6 +14,8 @@ var transporter = nodemailer.createTransport({
     }
 })
 
+
+
 // Parse the request body
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -22,10 +24,11 @@ app.use(express.json());
 //purpose of this is to enable cross domain requests
 // Add headers
 app.use(function (req, res, next) {
-
-    // Website you wish to allow to connect
-    res.setHeader('Access-Control-Allow-Origin', 'http://kludger.techlaunch.io:8999', 'http://142.93.115.171:8999');
-  
+    var allowedOrigins = ['http://fveloz.techlaunch.io:8000', 'http://142.93.207.204:8000'];
+  var origin = req.headers.origin;
+  if (allowedOrigins.indexOf(origin) > -1) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
     // Request methods you wish to allow
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   
@@ -89,7 +92,7 @@ app.post('/',
     function (req, res, next) {
         console.log(req.body);
 
-        var emailBody = fs.readFileSync('./resume.html');
+        var emailBody = fs.readFileSync('./assets/resume.html');
 
         var mailOptions = {
             from: req.body.from,
