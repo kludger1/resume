@@ -7,7 +7,7 @@ btn.onclick = function(e){
     btn.setAttribute("disabled", true);
     document.getElementById('message').innerHTML = 'Sending email...';
     //Wraper of the vanilla JS to send request the server
-    fetch('http://kludger.techlaunch.io:8999', {
+    fetch('http://142.93.115.171:8999', {
         method: 'POST',
         headers:{
             'accept': 'application/json',
